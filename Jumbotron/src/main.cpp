@@ -2,11 +2,12 @@
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include <ESPDash.h>
+#include <qrcode_espi.h>
 //#include <lvgl.h>
 
 TFT_eSPI tft = TFT_eSPI();
 uint16_t x, y;
-
+QRcode_eSPI qrcode (&tft);
 
 AsyncWebServer server(80);
 ESPDash dashboard(&server); 
@@ -25,6 +26,9 @@ server.begin();
   tft.init();
   tft.setRotation(1);
   tft.fillScreen(TFT_BLACK);
+
+  qrcode.init();
+  qrcode.create("https://www.curobotics.net/");
 
 }
   
